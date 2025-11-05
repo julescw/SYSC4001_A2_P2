@@ -18,8 +18,8 @@ int main() {
     pid = fork();
 
     if (pid == 0) {
-        execl("./p2child", "p2child", NULL);
-        perror("exec failed"); // Only executes if exec fails
+        execl("./p2p2child", "p2p2child", NULL);
+        perror("exec failed");
         exit(1);
       
     } else if (pid > 0) {
