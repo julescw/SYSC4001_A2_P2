@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
+#define KILLSWITCH -100
 
 int main(){
   int p1counter = 0;
