@@ -31,7 +31,7 @@ int main() {
             }
             p2counter++;
             sleep(1); 
-            if(p2counter == 0-KILLSWITCH){
+            if(p2counter == KILLSWITCH){
                 kill(getpid(), SIGKILL);
             }
         }
