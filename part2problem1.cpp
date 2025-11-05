@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <signal.h>
+#define KILLSWITCH 100
 
 /**
  *
  * @file part2problem1.cpp
  * @author Matthew Sanii
+ * @author Jules Wong
  *
  */
 
@@ -17,16 +20,23 @@ int main() {
     pid = fork();
 
     if (pid == 0) {
-        // This code runs in the child process
-        printf("Hello from the child process! My PID is %d, my parent's PID is %d\n", getpid(), getppid());
+        int p1counter = 0;
+        while(1) {
+            printf("Child Process (PID: %d), Counter: %d\n", getpid(), p1counter++);
+            sleep(1); 
+            if(p1counter == KILLSWITCH){
+                kill(getpid(), SIGKILL);
+            }
+        }
     } else if (pid > 0) {
-        // This code runs in the parent process
-        printf("Hello from the parent process! My PID is %d, my child's PID is %d\n", getpid(), pid);
-    }
-    while(1){
-        if(pid==0){
-        context +=1;
-        printf("%d", context);
-    }
+        int p2counter = 0;
+        while(1) {
+            printf("Parent Process (PID: %d), Counter: %d\n", getpid(), p2counter++);
+            sleep(1); 
+            if(p2counter == KILLSWITCH){
+                kill(getpid(), SIGKILL);
+            }
+        }
     }
 }
+
