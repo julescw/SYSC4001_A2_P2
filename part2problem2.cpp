@@ -30,7 +30,7 @@ int main() {
               printf("%d is a multiple of 3.\n", p2counter);
             }
             sleep(1); 
-            if(p2counter == KILLSWITCH){
+            if(p2counter == 0-KILLSWITCH){
                 kill(getpid(), SIGKILL);
             }
         }
