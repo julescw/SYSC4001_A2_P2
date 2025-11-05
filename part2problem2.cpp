@@ -18,7 +18,7 @@ int main() {
     pid = fork();
 
     if (pid == 0) {
-        execl("./child", "child", NULL);
+        execl("./p2child", "p2child", NULL);
         perror("exec failed"); // Only executes if exec fails
         exit(1);
       
