@@ -91,21 +91,20 @@ int main() {
             int count = counter[1];
             printf("Parent Process (PID: %d), Counter: %d\n", getpid(), count);
             if(count % multiple == 0){
-              printf("%d is a multiple of %d.\n", count, mult);
+              printf("%d is a multiple of %d.\n", count, multiple);
             }
             count++;
             counter[1] = count;
             sem_signal(semid);
             sleep(1);
-            if(counter[1] > 500){
-              printf("Killing Process 1.\n");
-              shmctl(shmid, IPC_RMID, NULL);
-              semctl(semid, 0, IPC_RMID);
-              kill(getpid(), SIGKILL);
-              if (shmdt(counter) == -1) {
-                perror("shmdt failed");
-                exit(1);
-            }}
+            if (counter[1] > KILLSWITCH) {
+                printf("Killing Process 1.\n");
+                if (shmdt(counter) == -1)
+                    perror("shmdt failed");
+                shmctl(shmid, IPC_RMID, NULL);
+                semctl(semid, 0, IPC_RMID);
+                kill(getpid(), SIGKILL);
+            }
         }
     }
 }
