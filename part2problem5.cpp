@@ -19,6 +19,24 @@
  *
  */
 
+   // Semaphore signal (P)
+void sem_wait(int semid) {
+        struct sembuf sb = {0, -1, 0};
+        if (semop(semid, &sb, 1) == -1) {
+            perror("semop wait failed");
+            exit(1);
+        }
+    }
+    
+    // Semaphore signal (V)
+void sem_signal(int semid) {
+    struct sembuf sb = {0, 1, 0};
+    if (semop(semid, &sb, 1) == -1) {
+        perror("semop signal failed");
+        exit(1);
+    }
+}
+
 int main() {
   key_t key;
   pid_t pid;    
@@ -89,22 +107,5 @@ int main() {
                 exit(1);
             }}
         }
-    }
-}
-   // Semaphore signal (P)
-void sem_wait(int semid) {
-        struct sembuf sb = {0, -1, 0};
-        if (semop(semid, &sb, 1) == -1) {
-            perror("semop wait failed");
-            exit(1);
-        }
-    }
-    
-    // Semaphore signal (V)
-void sem_signal(int semid) {
-    struct sembuf sb = {0, 1, 0};
-    if (semop(semid, &sb, 1) == -1) {
-        perror("semop signal failed");
-        exit(1);
     }
 }
