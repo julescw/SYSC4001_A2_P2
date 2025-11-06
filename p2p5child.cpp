@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/sem.h>
 #define KILLSWITCH 500
 #define SHM_SIZE (2 * sizeof(int))
 
