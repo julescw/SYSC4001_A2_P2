@@ -31,7 +31,8 @@ void sem_signal(int semid) {
 
 int main() {
     key_t shmkey = ftok(".", 'R');
-    key_t semkey = ftok(".", 'S');
+    key_t semkey = ftok(".", 'R'); // not 'S', to match parent
+    int semid = semget(semkey, 1, 0666);
     if (shmkey == -1 || semkey == -1) {
         perror("ftok failed");
         exit(1);
